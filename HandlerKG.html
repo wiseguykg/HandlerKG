@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+body{background-color:black; font-family:"Courier New", Courier, monospace; margin: 40px;}
+p{color:red;}
+li {margin-left: 20px;}
+div {
+    background-color: white;
+    width: 90%;
+    border: 50px;
+    padding: 25px;
+    margin: 25px;
+}
+</style>
+
+<meta charset="UTF-8">
+<title>Handler.</title>
+</head>
+
+<body>
+
+<h1 style="color:red;">HANDLER.</h1>
+<p><b>Hey there, mentor!</b> You seem to be having problems managing your mentees.</p>
+<p>Fear not, <b>we'll handle them for you!</b></p>
+<p id="dism"></p>
+<button style="background-color: red; color: black; padding: 16px 20px; margin: 8px 0; border: none; cursor: pointer; width: 30%; opacity: 0.9;" onclick="crement(mentos)"><b>CREATE MENTEE</b></button>
+<button style="background-color: red; color: black; padding: 16px 20px; margin: 8px 0; border: none; cursor: pointer; width: 30%; opacity: 0.9;" onclick="arc(mentos)"><b>RATE MENTEE</b></button>
+<button style="background-color: red; color: black; padding: 16px 20px; margin: 8px 0; border: none; cursor: pointer; width: 30%; opacity: 0.9;" onclick="edm(mentos)"><b>EDIT MENTEE</b></button>
+<button style="background-color: red; color: black; padding: 16px 20px; margin: 8px 0; border: none; cursor: pointer; width: 30%; opacity: 0.9;" onclick="dem(mentos)"><b>DELETE MENTEE</b></button>
+<button style="background-color: red; color: black; padding: 16px 20px; margin: 8px 0; border: none; cursor: pointer; width: 30%; opacity: 0.9;" onclick="comen(mentos)"><b>COMMENT</b></button>
+<button style="background-color: red; color: black; padding: 16px 20px; margin: 8px 0; border: none; cursor: pointer; width: 30%; opacity: 0.9;" onclick="clem()"><b>CLEAR ALL</b></button>
+<p id="disa"></p>
+<script>
+oldmentos = [];
+mentos = localStorage.getItem("arm").split(",");
+function crement(a){
+	var name = prompt("Name?");
+	var rollno = prompt("Roll number?");
+	var rat = "Not given.";
+	var comm = "No comments.";
+	a.push(name);
+	localStorage.setItem(name, [name, rollno, rat, comm].toString());
+	clear(a);
+	disall(a);
+	meno(a);
+	savm(a);
+}
+function disment(a){
+	if(a.length>0){
+		var n = prompt("Name?");
+		var f=0;
+		for(var i=0; i<a.length; i++){
+			if(a[i] == n){
+				var lsd = localStorage.getItem(n).split(",");	
+				var d = "<b>Name:</b>" + lsd[0] + "<br/><b>Roll No:</b>" + lsd[1] + "<br/><b>Rating:</b>" + lsd[2] + "<br/><b>Comments:</b>" + lsd[3] + "<br/>"; 
+				document.getElementById("dism").innerHTML = "<div>" + d + "</div>";
+				f=1;
+				break;}}
+	
+	if(f==0){window.alert("Hey, looks like there's no one like that.");}		
+	}
+	else{
+		window.alert("Hey, there is no one to display.")}
+	clear(a);
+	disall(a);
+	meno(a);
+	savm(a);
+}
+function arc(a){
+	if(a.length>0){
+		var n = prompt("Name?");
+		var f=0;
+		for(i in a){
+			if(a[i] == n){
+				var lsd = localStorage.getItem(n).split(",");
+				var r = prompt("Rating?(Out of 5.)");
+				lsd[2] = r;
+				localStorage.setItem(n, lsd.toString());
+				window.alert("Rating added.");
+				f=1;
+				break;}}
+		if(f==0){window.alert("Hey, looks like there's no one like that.");}	
+	}	
+	else{
+		window.alert("Hey, there is no one to rate.")}
+	clear(a);
+	disall(a);
+	meno(a);
+	savm(a);
+}
+function comen(a){
+	if(a.length>0){
+		var n = prompt("Name?");
+		var f=0;
+		for(i in a){
+			if(a[i] == n){
+				var lsd = localStorage.getItem(n).split(",");
+				var c = prompt("Comments?");
+				lsd[3] = c;
+				localStorage.setItem(n, lsd.toString());
+				window.alert("Comments added.");
+				f=1;
+				break;}}
+		if(f==0){window.alert("Hey, looks like there's no one like that.");}	
+	}	
+	else{
+		window.alert("Hey, there is no one to comment on.")}
+	clear(a);
+	disall(a);
+	meno(a);
+	savm(a);
+}
+function edm(a){
+	if(a.length>0){
+		var n = prompt("Name?");
+		var f=0;
+		for(i in a){
+			if(a[i] == n){
+				var lsd = localStorage.getItem(n).split(",");
+				var na = prompt("New Name?");
+				lsd[0] = na;
+				var rn = prompt("New Roll No?");
+				lsd[1] = rn;
+				localStorage.setItem(na, lsd.toString());
+				localStorage.removeItem(n);
+				var index = a.indexOf(n);
+				a.splice(index, 1);
+				a.push(lsd[0]);
+				window.alert("Mentee edited.");
+				f=1;
+				break;}}
+		if(f==0){window.alert("Hey, looks like there's no one like that.");}	
+	}	
+	else{
+		window.alert("Hey, there is no one to edit.")}
+	clear(a);
+	disall(a);
+	meno(a);
+	savm(a);
+}
+function dem(a){
+	if(a.length>0){
+		var n = prompt("Name?");
+		var f=0;
+		for(i in a){
+			if(a[i] == n){
+				localStorage.removeItem(n);
+				var index = a.indexOf(n);
+				a.splice(index, 1);
+				window.alert("Mentee deleted.");
+				f=1;
+				break;}}
+		if(f==0){window.alert("Hey, looks like there's no one like that.");}	
+		}	
+	else{
+		window.alert("Hey, there is no one to delete.")}
+	clear(a);
+	disall(a);
+	meno(a);
+	savm(a);
+}
+function clear(a){
+	document.getElementById("disa").innerHTML = "<div</div>";}
+function disall(a){
+	for(var i=0; i<a.length; i++){
+		var b = localStorage.getItem(a[i]);
+		if(b != null){
+			var lsd = b.split(",");
+			var d = "<b>Name:</b>" + lsd[0] + "<br/><b>Roll No:</b>" + lsd[1] + "<br/><b>Rating:</b>" + lsd[2] + "<br/><b>Comments:</b>" + lsd[3] + "<br/>"; 
+			document.getElementById("disa").innerHTML += "<div>" + d + "</div></br>";}}
+}
+function meno(a){
+	document.getElementById("dism").innerHTML = "You have "+"<b>"+a.length + " mentees.</b>";
+	if(a.length==1){
+		document.getElementById("dism").innerHTML = "You have "+"<b>a mentee.</b>";}}
+function savm(a){
+	localStorage.setItem("arm", a.toString());}
+function clem(){
+	localStorage.clear();
+	window.alert("Cleared.");}
+</script>
+</body>
+</html>
